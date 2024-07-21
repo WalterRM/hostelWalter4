@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pancas2.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="interface">
+        <header id="cabecalho">
+            <hgroup>
+<h1> A mais longa tirolesa da América Latina</h1>
+<h2>Com 2950 metros de descida</h2>
+</hgroup>
+<img src="imagens/bike.png">
+<nav id="menu">
+<h1>Menu Principal</h1>
+<ul>
+<li><a href="index-txt.html">Home</a></li>
+<li><a href="hosp-txt.html">Hospedagem</a></li>
+<li><a href="fotos-txt.html">Fotos</a></li>
+<li><a href="multimidia-txt.html">Vídeos</a></li>
+<li><a href="fale-conosco-txt.html">Fale conosco</a></li>
+<li><a href="agricultura-txt.html">Agricultura</a></li>
+</ul>
+</nav>
+</header>
+
+<h2>Irrigação</h2>
+<h3>Conversores</h3>
+<p>Para converter as grandezas Alqueire, Hectare, Metro quadrado, pressão, litros </p>
+
+<p>Valores gastos e recebidos</p>
+
+<h1>Calculadora de Despesass</h1>
+
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unidade</th>
+            <th>Quantidade</th>
+            <th>Valor Total (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Gasolina</td>
+            <td>Litros</td>
+            <td><input type="number" id="gasolinaQuantidade" placeholder="Quantidade"></td>
+            <td id="gasolinaTotal">0.00</td>
+        </tr>
+        <tr>
+            <td>Óleo Dísel</td>
+            <td>Litros</td>
+            <td><input type="number" id="oleoQuantidade" placeholder="Quantidade"></td>
+            <td id="oleoTotal">0.00</td>
+        </tr>
+
+
+        <tr>
+            <td>Óleo 2tempo</td>
+            <td>Litros</td>
+            <td><input type="number" id="oleo2tQuantidade" placeholder="Quantidade"></td>
+            <td id="oleo2tTotal">0.00</td>
+        </tr>
+ 
+        <!-- Adicione as linhas restantes para os outros itens -->
+        <!-- ... -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td id="totalGeral">0.00</td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unidade</th>
+            <th>Quantidade</th>
+            <th>Valor Total (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Linhas dos itens -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total</td>
+            <td id="totalGeral">0.00</td>
+        </tr>
+        <tr>
+            <td colspan="3">Valor Recebido</td>
+            <td><input type="number" id="valorRecebido" placeholder="Insira o valor recebido"></td>
+        </tr>
+        <tr>
+            <td colspan="3">Valor Líquido</td>
+            <td id="valorLiquido">0.00</td>
+        </tr>
+    </tfoot>
+</table>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Unidade</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário (R$)</th>
+            <th>Valor Total (R$)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Linhas dos itens -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">Total</td>
+            <td id="totalGeral">0.00</td>
+        </tr>
+    </tfoot>
+</table>
+
+<h2>Clientes Pagadoress</h2>
+
+<div id="clientesPagadores">
+    <!-- Aqui serão adicionados dinamicamente os campos para os clientes pagadores -->
+</div>
+
+<button onclick="adicionarClientePagador()">Adicionar Cliente Pagador</button>
+
+<script>
+    var contadorClientes = 0;
+
+    function adicionarClientePagador() {
+        contadorClientes++;
+
+        var divClientes = document.getElementById("clientesPagadores");
+
+        var novoClienteHtml = `
+            <div id="cliente${contadorClientes}">
+                <input type="text" id="nomeCliente${contadorClientes}" placeholder="Nome do Cliente">
+                <input type="number" id="valorCliente${contadorClientes}" placeholder="Valor Recebido">
+                <input type="text" id="tipoProduto${contadorClientes}" placeholder="Tipo de Produto">
+                <input type="date" id="dataPagamento${contadorClientes}" placeholder="Data do Pagamento">
+            </div>
+        `;
+
+        divClientes.insertAdjacentHTML('beforeend', novoClienteHtml);
+    }
+
+    function calcular() {
+        // Calcula o valor total para cada item
+        var totalGeral = 0;
+
+        // Adicione o código para calcular o total de cada item aqui
+        // ...
+
+        // Calcula o valor total geral
+        document.getElementById("totalGeral").textContent = totalGeral.toFixed(2);
+
+        // Calcula o valor líquido para cada cliente pagador
+        for (var i = 1; i <= contadorClientes; i++) {
+            var valorRecebido = parseFloat(document.getElementById(`valorCliente${i}`).value) || 0;
+            var valorTotal = 200.00/* calcular o valor total para este cliente */;
+            var valorLiquido = valorRecebido - valorTotal;
+            console.log(`Cliente ${i}: Valor Líquido = ${valorLiquido.toFixed(2)}`);
+        }
+    }
+
+    // Função para calcular o valor total de um item
+    function calcularItem(item, valorUnitario) {
+        var quantidade = parseFloat(document.getElementById(item + "Quantidade").value) || 0;
+        var total = quantidade * valorUnitario;
+        // Atualiza o valor total na tabela
+        document.getElementById(item + "Total").textContent = total.toFixed(2);
+        return total;
+    }
+</script>
+
+
+<button onclick="calcular()">Calcular</button>
+- Gasolina
+- Comida
+- adubo
+- Luz
+- Internet
+- manutenção de ferramentas.
+
+<footer id="rodape">
+    <p>Copyright 2023 - Walter Rodrigues de Miranda
+    <br><a href="http://facebook.com">Facebook</a> | <a href="http://twitter.com">Twitter</a></p>
+    </footer>
+    </div>
+   <!--<script src="panca.js"></script>--> 
+    <script src="pancas2.js"></script>
+    </body>
+    </html>
